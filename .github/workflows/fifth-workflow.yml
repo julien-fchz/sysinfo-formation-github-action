@@ -1,0 +1,18 @@
+name: Fifth Workflow
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.12
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: installation des dépendances
+        run: pip install ifaddr psutil pylint
+      - name: exécution du test
+        run: pylint --disable=missing-docstring script/mysystem/mysystem.py
