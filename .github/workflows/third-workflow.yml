@@ -6,6 +6,8 @@ jobs:
     container:
       image: alpine:3.22
     steps:
+      - name: install lsblk
+        run: apk lsblk
       - name: information sur le stockage
         run: lsblk
       - name: information sur le noyau utilisé
