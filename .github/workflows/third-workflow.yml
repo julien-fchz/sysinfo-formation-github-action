@@ -1,0 +1,12 @@
+name: Third Workflow
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:3.22
+    steps:
+      - name: information sur le stockage
+        run: lsblk
+      - name: information sur le noyau utilisé
+        run: uname -a
