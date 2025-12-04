@@ -40,6 +40,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: installation des dépendances
-        run: pip install ifaddr psutil pylint
+        run: pip install ifaddr psutil
       - name: exécution du python
         run: python script/mysystem/mysystem.py
