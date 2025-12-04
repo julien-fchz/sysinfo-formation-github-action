@@ -6,7 +6,5 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-      - name: make folder
-        run: mkdir bin
       - name: compilation
         run: make build
