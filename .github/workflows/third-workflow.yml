@@ -7,7 +7,7 @@ jobs:
       image: alpine:3.22
     steps:
       - name: install lsblk
-        run: apk lsblk
+        run: apk add lsblk
       - name: information sur le stockage
         run: lsblk
       - name: information sur le noyau utilisé
