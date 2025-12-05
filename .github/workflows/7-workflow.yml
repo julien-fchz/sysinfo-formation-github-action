@@ -37,4 +37,4 @@ jobs:
 
       - name: Show secret
         run: |
-          echo "OS: ${{ secrets.SECRET_TEST }}"
+          echo "secret: ${{ secrets.SECRET_TEST }}"
