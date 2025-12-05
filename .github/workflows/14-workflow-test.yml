@@ -1,0 +1,13 @@
+name: Workflow-14-test-action-github-actions-versioner
+on: workflow_dispatch
+jobs:
+  compilation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Check GitHub Actions Versions
+        uses: mateuszgorniak/github-actions-versioner@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
