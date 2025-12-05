@@ -1,4 +1,4 @@
-name: Workflow-7
+name: Workflow-07-variables
 
 on: push
 env:

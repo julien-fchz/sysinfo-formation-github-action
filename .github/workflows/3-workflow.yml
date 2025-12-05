@@ -1,4 +1,4 @@
-name: Workflow-3
+name: Workflow-03-in-container
 on: push
 jobs:
   test:

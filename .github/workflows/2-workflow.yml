@@ -1,4 +1,4 @@
-name: Workflow-2
+name: Workflow-02-manual-job
 on: workflow_dispatch
 jobs:
   build:

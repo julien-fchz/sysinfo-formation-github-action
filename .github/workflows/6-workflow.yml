@@ -1,4 +1,4 @@
-name: Workflow-6
+name: Workflow-06-neede-job
 on: push
 jobs:
   c-lint:
