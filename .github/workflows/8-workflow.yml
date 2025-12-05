@@ -32,7 +32,13 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: 'executable_c'
+      - name: ls
+        run: ls -la
+      - name: ls bin
+        run: ls -la ./bin
+      - name: ls bin sysinf
+        run: ls -la ./bin/sysinf
       - name: Execution du programme
         run: |
-          chmod +x .sysinfo
-          ./sysinfo
+          chmod +x ./bin/sysinfo/sysinfo
+          ./bin/sysinfo/sysinfo
