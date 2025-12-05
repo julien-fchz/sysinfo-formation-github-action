@@ -1,4 +1,4 @@
-name: Workflow-9-compile-feature
+name: Workflow-9-c-compile-feature
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Workflow-9-release-tag
+name: Workflow-9-c-release-tag
 
 on:
   push:
@@ -10,11 +10,38 @@ permissions:
   packages: write
 
 jobs:
-  c-release:
+  c-compilation:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: compilation
+        run: make build
+      - name: Generate a Digital Signature
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: 'bin/sysinfo'
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v5
+        with:
+          path: 'bin/sysinfo'
+          name: 'executable_c ${{ github.sha }}'
+          retention-days: 1
+          compression-level: '9'
+          overwrite: 'true'
+  c-release:
+    needs: c-compilation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: 'executable_c ${{ github.sha }}'
+      - name: chmod
+        run: chmod +x sysinfo
       - name: make release
         uses: softprops/action-gh-release@v2
         with:
           body: "New release C : ${{ github.ref_name }}"
           draft: false
+          files: sysinfo
