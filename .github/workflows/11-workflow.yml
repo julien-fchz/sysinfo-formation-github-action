@@ -1,21 +1,6 @@
 name: Workflow-11-cache
 on: push
 jobs:
-  c-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-      - name: lint
-        run: make lint
-  c-compilation:
-    needs: c-lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-      - name: compilation
-        run: make build
   python-lint:
     runs-on: ubuntu-latest
     steps:
