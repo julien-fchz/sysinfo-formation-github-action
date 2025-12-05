@@ -36,8 +36,8 @@ jobs:
         run: ls -la
       - name: ls bin
         run: ls -la ./bin
-      - name: ls bin sysinf
-        run: ls -la ./bin/sysinf
+      - name: ls bin sysinfo
+        run: ls -la ./bin/sysinfo
       - name: Execution du programme
         run: |
           chmod +x ./bin/sysinfo/sysinfo
