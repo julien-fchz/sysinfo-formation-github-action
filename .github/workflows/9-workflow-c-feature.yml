@@ -1,0 +1,52 @@
+name: Workflow-8
+
+on:
+  push:
+    branches:
+      - feature/**
+
+permissions:
+  id-token: write
+  attestations: write
+
+jobs:
+  c-lint:
+    if: startsWith(github.ref, 'refs/heads/feature/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: lint
+        run: make lint
+  c-compilation:
+    needs: c-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: compilation
+        run: make build
+      - name: Generate a Digital Signature
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: 'bin/sysinfo'
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v5
+        with:
+          path: 'bin/sysinfo'
+          name: 'executable_c'
+          retention-days: 1
+          compression-level: '9'
+          overwrite: 'true'
+  c-exec:
+    needs: c-compilation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: 'executable_c'
+      - name: Execution du programme
+        run: |
+          chmod +x sysinfo
+          ./sysinfo
