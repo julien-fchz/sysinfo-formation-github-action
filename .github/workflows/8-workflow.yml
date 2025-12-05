@@ -1,0 +1,37 @@
+name: Workflow-8
+on: push
+jobs:
+  c-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: lint
+        run: make lint
+  c-compilation:
+    needs: c-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: compilation
+        run: make build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v5
+        with:
+          path: 'bin/sysinfo'
+          name: 'executable_c'
+          retention-days: 1
+          compression-level: '9'
+          overwrite: 'true'
+  c-exec:
+    needs: c-compilation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: 'executable_c'
+          path: 'bin/sysinfo'
+      - name: Execution du programme
+        run: ./bin/sysinfo/sysinfo
