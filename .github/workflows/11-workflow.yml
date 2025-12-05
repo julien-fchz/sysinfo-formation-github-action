@@ -1,0 +1,46 @@
+name: Workflow-11-cache
+on: push
+jobs:
+  c-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: lint
+        run: make lint
+  c-compilation:
+    needs: c-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: compilation
+        run: make build
+  python-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - name: installation des dépendances
+        run: pip install ifaddr psutil pylint
+      - name: exécution du test
+        run: pylint --disable=missing-docstring script/mysystem/mysystem.py
+  python-exec:
+    needs: python-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: installation des dépendances
+        run: pip install ifaddr psutil
+      - name: exécution du python
+        run: python script/mysystem/mysystem.py
